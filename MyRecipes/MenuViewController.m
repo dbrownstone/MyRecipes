@@ -26,17 +26,11 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+//    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    NSString *urlStr = [NSString stringWithFormat:@"http://api.bigoven.com/recipes?title_kw=%@&api_key=%@",@"marinades&pg=1&rpp=20",kAPIKEY];
-    XMLParser *parser = [[XMLParser alloc] initWithURL:urlStr];
-    
-    _foodsArray = parser.recipeList;
-    self.filteredFoodArray = [NSMutableArray arrayWithCapacity:[self.foodsArray count]];
+    [[UIApplication sharedApplication] setStatusBaraStyle:UIStatusBarStyleLightContent];
     // Reload the table
     [self.tableView reloadData];
 }
@@ -44,6 +38,8 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.candySearchBar sizeToFit];
+    self.candySearchBar set
     [self.navigationController setToolbarHidden:YES animated:NO];
 }
 
@@ -57,10 +53,9 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
 {
     // Check to see whether the normal table or search results table is being displayed and return the count from the appropriate array
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        return [_filteredFoodArray count];
-    } else {
         return [_foodsArray count];
     }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -75,13 +70,16 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
     Food *food = nil;
     // Check to see whether the normal table or search results table is being displayed and set the Candy object from the appropriate array
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        food = [_filteredFoodArray objectAtIndex:indexPath.row];
-    } else {
         food = [Food foodOfCategory:[_foodsArray objectAtIndex:indexPath.row]];
     }
 
     // Configure the cell
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@, %@)",food.name, food.cuisine, food.category];
+    NSString *someString = [NSString stringWithFormat:@"%@ (%@)",food.name, food.category];
+    
+    NSError *error;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"  +" options:0 error:&error];
+    cell.textLabel.text = [regex stringByReplacingMatchesInString:someString options:0 range:NSMakeRange(0, someString.length) withTemplate:@" "];
+    
     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     return cell;}
 
@@ -97,12 +95,10 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
 
 #pragma mark Content Filtering
 -(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
-    // Update the filtered array based on the search text and scope.
-    // Remove all objects from the filtered search array
-    [self.filteredFoodArray removeAllObjects];
-    // Filter the array using NSPredicate
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@",searchText];
-    self.filteredFoodArray = [NSMutableArray arrayWithArray:[self.foodsArray filteredArrayUsingPredicate:predicate]];
+    NSString *urlStr = [NSString stringWithFormat:@"http://api.bigoven.com/recipes?title_kw=%@&pg=1&rpp=20&api_key=%@",searchText,kAPIKEY];
+    XMLParser *parser = [[XMLParser alloc] initWithURL:urlStr];
+    
+    _foodsArray = parser.recipeList;
 }
 
 #pragma mark - UISearchDisplayController Delegate Methods
