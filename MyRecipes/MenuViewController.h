@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Food.h"
+#import "Recipe.h"
 
 @interface MenuViewController: UIViewController
 
-@property (strong,nonatomic) NSArray *foodsArray;
+@property (strong,nonatomic) NSArray *recipeArray;
 @property (strong,nonatomic) IBOutlet UITableView *tableView;
 
 @end

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E36b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -130,9 +130,9 @@
                                 <animations/>
                                 <textInputTraits key="textInputTraits"/>
                                 <scopeButtonTitles>
-                                    <string>Internet</string>
                                     <string>Favorites</string>
                                     <string>All</string>
+                                    <string>Internet</string>
                                 </scopeButtonTitles>
                                 <connections>
                                     <outlet property="delegate" destination="YXr-d1-4T3" id="UDo-Tl-7eJ"/>
@@ -161,7 +161,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="candySearchBar" destination="Qro-M1-QpE" id="S9P-tf-p9e"/>
+                        <outlet property="recipeSearchBar" destination="Qro-M1-QpE" id="8Ya-cD-ANq"/>
                         <outlet property="searchDisplayController" destination="BYT-bw-xz1" id="4kO-cq-xQ4"/>
                         <outlet property="tableView" destination="PfL-F3-1EC" id="p3f-iN-rPi"/>
                     </connections>

@@ -17,7 +17,7 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
 
 @property (nonatomic) BOOL changeStoryboard;
 @property (strong,nonatomic) NSMutableArray *filteredFoodArray;
-@property IBOutlet UISearchBar *candySearchBar;
+@property IBOutlet UISearchBar *recipeSearchBar;
 
 @end
 
@@ -30,17 +30,20 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [[UIApplication sharedApplication] setStatusBaraStyle:UIStatusBarStyleLightContent];
-    // Reload the table
-    [self.tableView reloadData];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.candySearchBar sizeToFit];
-    self.candySearchBar set
+    [self.recipeSearchBar sizeToFit];
+    self.searchDisplayController.active = YES;
+    [self searchBar:self.recipeSearchBar selectedScopeButtonIndexDidChange:0];
     [self.navigationController setToolbarHidden:YES animated:NO];
+    // Reload the table
+    [self.tableView reloadData];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,7 +56,7 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
 {
     // Check to see whether the normal table or search results table is being displayed and return the count from the appropriate array
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        return [_foodsArray count];
+        return [_recipeArray count];
     }
     return 0;
 }
@@ -67,14 +70,14 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     // Create a new Food Object
-    Food *food = nil;
+    Recipe *recipe = nil;
     // Check to see whether the normal table or search results table is being displayed and set the Candy object from the appropriate array
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        food = [Food foodOfCategory:[_foodsArray objectAtIndex:indexPath.row]];
+        recipe = [Recipe recipeOfCategory:[_recipeArray objectAtIndex:indexPath.row]];
     }
 
     // Configure the cell
-    NSString *someString = [NSString stringWithFormat:@"%@ (%@)",food.name, food.category];
+    NSString *someString = [NSString stringWithFormat:@"%@ (%@)",recipe.name, recipe.category];
     
     NSError *error;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"  +" options:0 error:&error];
@@ -96,24 +99,39 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
 #pragma mark Content Filtering
 -(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
     NSString *urlStr = [NSString stringWithFormat:@"http://api.bigoven.com/recipes?title_kw=%@&pg=1&rpp=20&api_key=%@",searchText,kAPIKEY];
-    XMLParser *parser = [[XMLParser alloc] initWithURL:urlStr];
+    NSURL *URL = [NSURL URLWithString:urlStr];
+    XMLParser *parser = [[XMLParser alloc] initWithURL:URL];
     
-    _foodsArray = parser.recipeList;
+    _recipeArray = parser.recipeList;
 }
 
 #pragma mark - UISearchDisplayController Delegate Methods
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    searchText = [searchText stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    
+}
+
+- (void)searchBar:(UISearchBar *)searchBar
+    selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+    
+}
+    
+-(BOOL)searchDisplayController:(UISearchController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     // Tells the table data source to reload when text changes
     [self filterContentForSearchText:searchString scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+     [[controller.searchBar scopeButtonTitles] objectAtIndex:[controller.searchBar selectedScopeButtonIndex]]];
     // Return YES to cause the search result table view to be reloaded.
     return YES;
 }
 
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
+-(BOOL)searchDisplayController:(UISearchController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
     // Tells the table data source to reload when scope bar selection changes
-    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+    [self filterContentForSearchText:controller.searchBar.text scope:
+     [[controller.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
     // Return YES to cause the search result table view to be reloaded.
     return YES;
 }

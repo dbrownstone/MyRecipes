@@ -14,10 +14,10 @@
     NSMutableDictionary *recipeInfo;
 }
 
--(id) initWithURL:(NSString *)url {
+-(id) initWithURL:(NSURL *)url {
     if(self == [super init]) {
         parser = [[NSXMLParser alloc]
-                  initWithContentsOfURL:[NSURL URLWithString:url]];
+                  initWithContentsOfURL:url];
         [parser setDelegate:self];
         [parser parse];
     }
@@ -32,7 +32,6 @@
     if (!self.recipeList) {
         self.recipeList = [[NSMutableArray alloc] init];
     }
-    NSLog(@"Started Element %@", elementName);
     element = [NSMutableString string];
     if ([elementName isEqualToString:@"RecipeID"]) {
         if (recipeInfo) {
@@ -46,7 +45,6 @@
                                       namespaceURI:(NSString *)namespaceURI
                                      qualifiedName:(NSString *)qName {
     
-    NSLog(@"Found an element named: %@ with a value of: %@", elementName, element);
     [recipeInfo setValue:element forKey:elementName];
 }
 

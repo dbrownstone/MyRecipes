@@ -12,7 +12,7 @@
 		637D793B1B41942400192BDF /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 637D793A1B41942400192BDF /* MenuViewController.m */; };
 		637D79401B41957700192BDF /* UIColor+Hextentions.m in Sources */ = {isa = PBXBuildFile; fileRef = 637D793F1B41957700192BDF /* UIColor+Hextentions.m */; };
 		637D79431B419B6500192BDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 637D79421B419B6500192BDF /* Main.storyboard */; };
-		63B207761B42C91300EF5BC1 /* Food.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B207751B42C91300EF5BC1 /* Food.m */; };
+		63B207761B42C91300EF5BC1 /* Recipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B207751B42C91300EF5BC1 /* Recipe.m */; };
 		63B2077C1B42F3B300EF5BC1 /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B2077B1B42F3B300EF5BC1 /* XMLParser.m */; };
 		63BECE161B4071C000BA7267 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BECE151B4071C000BA7267 /* main.m */; };
 		63BECE191B4071C000BA7267 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BECE181B4071C000BA7267 /* AppDelegate.m */; };
@@ -51,8 +51,8 @@
 		637D793E1B41957700192BDF /* UIColor+Hextentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hextentions.h"; sourceTree = "<group>"; };
 		637D793F1B41957700192BDF /* UIColor+Hextentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hextentions.m"; sourceTree = "<group>"; };
 		637D79421B419B6500192BDF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		63B207741B42C91300EF5BC1 /* Food.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Food.h; sourceTree = "<group>"; };
-		63B207751B42C91300EF5BC1 /* Food.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Food.m; sourceTree = "<group>"; };
+		63B207741B42C91300EF5BC1 /* Recipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recipe.h; sourceTree = "<group>"; };
+		63B207751B42C91300EF5BC1 /* Recipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recipe.m; sourceTree = "<group>"; };
 		63B2077A1B42F3B300EF5BC1 /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParser.h; sourceTree = "<group>"; };
 		63B2077B1B42F3B300EF5BC1 /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParser.m; sourceTree = "<group>"; };
 		63BECE101B4071C000BA7267 /* MyRecipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyRecipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,10 +144,7 @@
 				637D793A1B41942400192BDF /* MenuViewController.m */,
 				63BECE1A1B4071C000BA7267 /* ViewController.h */,
 				63BECE1B1B4071C000BA7267 /* ViewController.m */,
-				63B2077A1B42F3B300EF5BC1 /* XMLParser.h */,
-				63B2077B1B42F3B300EF5BC1 /* XMLParser.m */,
-				63B207741B42C91300EF5BC1 /* Food.h */,
-				63B207751B42C91300EF5BC1 /* Food.m */,
+				D4B87C111B451AE200EDC53B /* Models */,
 				637D79421B419B6500192BDF /* Main.storyboard */,
 				637D79411B41957D00192BDF /* Utils */,
 				63BECE201B4071C000BA7267 /* Images.xcassets */,
@@ -205,6 +202,17 @@
 				63BECE4A1B40756900BA7267 /* System San Francisco Text RegularItalic.ttf */,
 			);
 			path = "Text Face (alternate)";
+			sourceTree = "<group>";
+		};
+		D4B87C111B451AE200EDC53B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				63B2077A1B42F3B300EF5BC1 /* XMLParser.h */,
+				63B2077B1B42F3B300EF5BC1 /* XMLParser.m */,
+				63B207741B42C91300EF5BC1 /* Recipe.h */,
+				63B207751B42C91300EF5BC1 /* Recipe.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,7 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				637D79371B4193BB00192BDF /* RBStoryboardLink.m in Sources */,
-				63B207761B42C91300EF5BC1 /* Food.m in Sources */,
+				63B207761B42C91300EF5BC1 /* Recipe.m in Sources */,
 				63BECE1C1B4071C000BA7267 /* ViewController.m in Sources */,
 				637D79401B41957700192BDF /* UIColor+Hextentions.m in Sources */,
 				637D79381B4193BB00192BDF /* SWRevealViewController.m in Sources */,

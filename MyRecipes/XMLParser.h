@@ -12,6 +12,6 @@
 
 @property (strong,nonatomic) NSMutableArray *recipeList;
 
--(id) initWithURL:(NSString *)url;
+-(id) initWithURL:(NSURL *)url;
 
 @end
