@@ -22,7 +22,7 @@ extern NSString *kAPIKEY;
 @property (nonatomic,weak) IBOutlet UIImageView *imageView;
 @property (nonatomic,weak) IBOutlet UILabel *theTitle;
 @property (nonatomic,weak) IBOutlet UILabel *prepTime;
-@property (nonatomic,weak) IBOutlet UILabel *notes;
+@property (nonatomic,weak) IBOutlet UITextView *notes;
 @property (nonatomic,weak) IBOutlet UITextView *ingredients;
 @property (nonatomic,weak) IBOutlet UITextView *preparation;
 @end
@@ -61,10 +61,20 @@ extern NSString *kAPIKEY;
         self.theTitle.text = [self removeNewLinesFromString:_thisRecipesData[@"Title"]];
         self.prepTime.text = [self removeNewLinesFromString:[NSString stringWithFormat:@"Ready in %@ minutes",_thisRecipesData[@"TotalMinutes"]]];
         self.notes.text = _thisRecipesData[@"Description"];
+        [self.notes sizeToFit];
         self.ingredients.text = _thisRecipesData[@"Ingredients"];
+        [self.ingredients sizeToFit];
         self.preparation.text = _thisRecipesData[@"Instructions"];
+        [self.preparation sizeToFit];
         
-        self.scrollView.contentSize = CGSizeMake(self.scrollContentView.frame.size.width,self.scrollContentView.frame.size.height);
+        float sizeOfContent = 0;
+        int i;
+        for (i = 0; i < [_scrollContentView.subviews count]; i++) {
+            UIView *view =[_scrollContentView.subviews objectAtIndex:i];
+            sizeOfContent += view.frame.size.height;
+        }
+
+        self.scrollView.contentSize = [_scrollView sizeThatFits:_scrollView.frame.size];//CGSizeMake(self.scrollContentView.frame.size.width,sizeOfContent);
     }
 }
 
