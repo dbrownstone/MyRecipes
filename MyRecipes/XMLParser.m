@@ -11,7 +11,6 @@
 @implementation XMLParser {
     NSXMLParser *parser;
     NSMutableString *element;
-    NSMutableDictionary *recipeInfo;
 }
 
 -(id) initWithURL:(NSURL *)url {
@@ -34,10 +33,10 @@
     }
     element = [NSMutableString string];
     if ([elementName isEqualToString:@"RecipeID"]) {
-        if (recipeInfo) {
-            [self.recipeList addObject:recipeInfo];
+        if (_recipeInfo) {
+            [self.recipeList addObject:_recipeInfo];
         }
-        recipeInfo = [[NSMutableDictionary alloc]init];
+        _recipeInfo = [[NSMutableDictionary alloc]init];
     }
 }
 
@@ -45,7 +44,7 @@
                                       namespaceURI:(NSString *)namespaceURI
                                      qualifiedName:(NSString *)qName {
     
-    [recipeInfo setValue:element forKey:elementName];
+    [_recipeInfo setValue:element forKey:elementName];
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {

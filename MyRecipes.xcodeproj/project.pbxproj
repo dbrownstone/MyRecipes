@@ -16,7 +16,7 @@
 		63B2077C1B42F3B300EF5BC1 /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B2077B1B42F3B300EF5BC1 /* XMLParser.m */; };
 		63BECE161B4071C000BA7267 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BECE151B4071C000BA7267 /* main.m */; };
 		63BECE191B4071C000BA7267 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BECE181B4071C000BA7267 /* AppDelegate.m */; };
-		63BECE1C1B4071C000BA7267 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BECE1B1B4071C000BA7267 /* ViewController.m */; };
+		63BECE1C1B4071C000BA7267 /* RecipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BECE1B1B4071C000BA7267 /* RecipeViewController.m */; };
 		63BECE211B4071C000BA7267 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63BECE201B4071C000BA7267 /* Images.xcassets */; };
 		63BECE241B4071C000BA7267 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63BECE221B4071C000BA7267 /* LaunchScreen.xib */; };
 		63BECE301B4071C000BA7267 /* MyRecipesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BECE2F1B4071C000BA7267 /* MyRecipesTests.m */; };
@@ -60,8 +60,8 @@
 		63BECE151B4071C000BA7267 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		63BECE171B4071C000BA7267 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		63BECE181B4071C000BA7267 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		63BECE1A1B4071C000BA7267 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		63BECE1B1B4071C000BA7267 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		63BECE1A1B4071C000BA7267 /* RecipeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipeViewController.h; sourceTree = "<group>"; };
+		63BECE1B1B4071C000BA7267 /* RecipeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecipeViewController.m; sourceTree = "<group>"; };
 		63BECE201B4071C000BA7267 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		63BECE231B4071C000BA7267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		63BECE291B4071C000BA7267 /* MyRecipesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyRecipesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,8 +142,8 @@
 				63BECE181B4071C000BA7267 /* AppDelegate.m */,
 				637D79391B41942400192BDF /* MenuViewController.h */,
 				637D793A1B41942400192BDF /* MenuViewController.m */,
-				63BECE1A1B4071C000BA7267 /* ViewController.h */,
-				63BECE1B1B4071C000BA7267 /* ViewController.m */,
+				63BECE1A1B4071C000BA7267 /* RecipeViewController.h */,
+				63BECE1B1B4071C000BA7267 /* RecipeViewController.m */,
 				D4B87C111B451AE200EDC53B /* Models */,
 				637D79421B419B6500192BDF /* Main.storyboard */,
 				637D79411B41957D00192BDF /* Utils */,
@@ -325,7 +325,7 @@
 			files = (
 				637D79371B4193BB00192BDF /* RBStoryboardLink.m in Sources */,
 				63B207761B42C91300EF5BC1 /* Recipe.m in Sources */,
-				63BECE1C1B4071C000BA7267 /* ViewController.m in Sources */,
+				63BECE1C1B4071C000BA7267 /* RecipeViewController.m in Sources */,
 				637D79401B41957700192BDF /* UIColor+Hextentions.m in Sources */,
 				637D79381B4193BB00192BDF /* SWRevealViewController.m in Sources */,
 				63BECE191B4071C000BA7267 /* AppDelegate.m in Sources */,

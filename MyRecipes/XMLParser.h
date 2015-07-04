@@ -11,6 +11,7 @@
 @interface XMLParser : NSObject <NSXMLParserDelegate>
 
 @property (strong,nonatomic) NSMutableArray *recipeList;
+@property (strong,nonatomic) NSMutableDictionary *recipeInfo;
 
 -(id) initWithURL:(NSURL *)url;
 

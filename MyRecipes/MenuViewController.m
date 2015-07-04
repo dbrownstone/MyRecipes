@@ -7,6 +7,7 @@
 //
 
 #import "MenuViewController.h"
+#import "RecipeViewController.h"
 #import "SWRevealViewController.h"
 #import "AppDelegate.h"
 #import "XMLParser.h"
@@ -16,7 +17,6 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
 @interface MenuViewController ()
 
 @property (nonatomic) BOOL changeStoryboard;
-@property (strong,nonatomic) NSMutableArray *filteredFoodArray;
 @property IBOutlet UISearchBar *recipeSearchBar;
 
 @end
@@ -64,11 +64,12 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"basicMenuCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if ( cell == nil ) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
+    
     // Create a new Food Object
     Recipe *recipe = nil;
     // Check to see whether the normal table or search results table is being displayed and set the Candy object from the appropriate array
@@ -77,23 +78,34 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
     }
 
     // Configure the cell
-    NSString *someString = [NSString stringWithFormat:@"%@ (%@)",recipe.name, recipe.category];
+    NSString *someString = [NSString stringWithFormat:@"%@",recipe.name];
     
     NSError *error;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"  +" options:0 error:&error];
     cell.textLabel.text = [regex stringByReplacingMatchesInString:someString options:0 range:NSMakeRange(0, someString.length) withTemplate:@" "];
+    cell.detailTextLabel.text = recipe.category;
     
     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     return cell;}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"displayRecipe" sender:indexPath];
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    if ( [sender isKindOfClass:[NSIndexPath class]] )
+    {
+        UINavigationController *navController = segue.destinationViewController;
+        RecipeViewController *vc = [navController childViewControllers].firstObject;
+        //UITableViewCell *cell = (UITableViewCell *)sender;
+        NSIndexPath *indexPath = (NSIndexPath *)sender;
+        NSDictionary *recipe = [_recipeArray objectAtIndex:indexPath.row];
+        vc.currentRecipe = recipe;
+    }
 }
 
 #pragma mark Content Filtering
@@ -105,18 +117,20 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
     _recipeArray = parser.recipeList;
 }
 
-#pragma mark - UISearchDisplayController Delegate Methods
+#pragma mark - UISearchControllerDelegate Methods
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     searchText = [searchText stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+}
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     
 }
 
-- (void)searchBar:(UISearchBar *)searchBar
-    selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
     
 }
     
@@ -130,8 +144,7 @@ NSString const *kAPIKEY=@"dvxBKsJ2k4iu2em3dBtcYbVMdJoLwp4s";
 
 -(BOOL)searchDisplayController:(UISearchController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
     // Tells the table data source to reload when scope bar selection changes
-    [self filterContentForSearchText:controller.searchBar.text scope:
-     [[controller.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+    [self filterContentForSearchText:controller.searchBar.text scope: [[controller.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
     // Return YES to cause the search result table view to be reloaded.
     return YES;
 }
