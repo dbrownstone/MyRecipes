@@ -18,6 +18,7 @@ extern NSString *kAPIKEY;
 @property (strong,nonatomic) NSDictionary *thisRecipesData;
 
 @property (nonatomic,weak) IBOutlet UIScrollView *scrollView;
+@property (nonatomic,weak) IBOutlet UIView *scrollContentView;
 @property (nonatomic,weak) IBOutlet UIImageView *imageView;
 @property (nonatomic,weak) IBOutlet UILabel *theTitle;
 @property (nonatomic,weak) IBOutlet UILabel *prepTime;
@@ -35,37 +36,62 @@ extern NSString *kAPIKEY;
     [self.revealButtonItem setAction: @selector( revealToggle: )];
     [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
     [self.revealViewController setRearViewRevealWidth:300];
-    self.theTitle.text = @"Recipe";
+    self.theTitle.text = @"";
     self.prepTime.text = @"";
     self.notes.text = @"";
     self.ingredients.text = @"";
     self.preparation.text = @"";
    
     if (self.currentRecipe[@"RecipeID"]) {
+        NSLog(@"%@",self.currentRecipe);
         self.scrollView.hidden = NO;
         NSString *urlStr = [NSString stringWithFormat:@"http://api.bigoven.com/recipe/%@?api_key=%@",self.currentRecipe[@"RecipeID"],kAPIKEY];
         
-        NSError *error;
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\n  +" options:0 error:&error];
-        urlStr = [regex stringByReplacingMatchesInString:urlStr options:0 range:NSMakeRange(0, urlStr.length) withTemplate:@""];
-
+        urlStr = [self removeNewLinesFromString:urlStr];
         NSURL *url = [NSURL URLWithString:urlStr];
         
         XMLParser *parser = [[XMLParser alloc] initWithURL:url];
         
         _thisRecipesData = [[NSDictionary alloc] initWithDictionary:parser.recipeInfo];
-//        
-//        urlStr = _thisRecipesData[@"WebURL"];
-//        urlStr = [regex stringByReplacingMatchesInString:urlStr options:0 range:NSMakeRange(0, urlStr.length) withTemplate:@""];
-//        url = [NSURL URLWithString:urlStr];
-//        NSMutableURLRequest * request =[NSMutableURLRequest requestWithURL:url];
-//        [self.webView loadRequest:request];
         
-        self.theTitle.text = _thisRecipesData[@"Title"];
-        self.prepTime.text = [NSString stringWithFormat:@"Ready in %@",_thisRecipesData[@"TotalMinutes"]];
-        self.notes.text = _thisRecipesData[@"PreparationNotes"];
+        UINavigationItem * navItem = self.navigationItem;
+        navItem.rightBarButtonItem.enabled = YES;
+        
+        NSLog(@"%@",self.thisRecipesData);
+        self.theTitle.text = [self removeNewLinesFromString:_thisRecipesData[@"Title"]];
+        self.prepTime.text = [self removeNewLinesFromString:[NSString stringWithFormat:@"Ready in %@ minutes",_thisRecipesData[@"TotalMinutes"]]];
+        self.notes.text = _thisRecipesData[@"Description"];
         self.ingredients.text = _thisRecipesData[@"Ingredients"];
         self.preparation.text = _thisRecipesData[@"Instructions"];
+        
+        self.scrollView.contentSize = CGSizeMake(self.scrollContentView.frame.size.width,self.scrollContentView.frame.size.height);
+    }
+}
+
+-(NSString *)removeNewLinesFromString:(NSString *)text {
+    NSError *error;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\n  +" options:0 error:&error];
+    return [regex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, text.length) withTemplate:@""];
+}
+
+- (IBAction)showURL {
+    self.scrollView.hidden = YES;
+    NSError *error;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\n  +" options:0 error:&error];
+    NSString *urlStr = _thisRecipesData[@"WebURL"];
+    urlStr = [regex stringByReplacingMatchesInString:urlStr options:0 range:NSMakeRange(0, urlStr.length) withTemplate:@""];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    NSMutableURLRequest * request =[NSMutableURLRequest requestWithURL:url];
+    [self.webView loadRequest:request];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (self.currentRecipe[@"RecipeID"]) {
+        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
     }
 }
 

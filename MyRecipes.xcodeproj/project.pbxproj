@@ -28,6 +28,8 @@
 		63BECE551B40756900BA7267 /* System San Francisco Text Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BECE481B40756900BA7267 /* System San Francisco Text Medium.ttf */; };
 		63BECE561B40756900BA7267 /* System San Francisco Text MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BECE491B40756900BA7267 /* System San Francisco Text MediumItalic.ttf */; };
 		63BECE571B40756900BA7267 /* System San Francisco Text RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63BECE4A1B40756900BA7267 /* System San Francisco Text RegularItalic.ttf */; };
+		D4B87C141B4788D200EDC53B /* DBRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B87C131B4788D200EDC53B /* DBRevealViewController.m */; };
+		D4B87C161B478BBF00EDC53B /* recipePlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = D4B87C151B478BBF00EDC53B /* recipePlaceholder.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,9 @@
 		63BECE481B40756900BA7267 /* System San Francisco Text Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Text Medium.ttf"; sourceTree = "<group>"; };
 		63BECE491B40756900BA7267 /* System San Francisco Text MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Text MediumItalic.ttf"; sourceTree = "<group>"; };
 		63BECE4A1B40756900BA7267 /* System San Francisco Text RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Text RegularItalic.ttf"; sourceTree = "<group>"; };
+		D4B87C121B4788D200EDC53B /* DBRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBRevealViewController.h; sourceTree = "<group>"; };
+		D4B87C131B4788D200EDC53B /* DBRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBRevealViewController.m; sourceTree = "<group>"; };
+		D4B87C151B478BBF00EDC53B /* recipePlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recipePlaceholder.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,14 +145,17 @@
 			children = (
 				63BECE171B4071C000BA7267 /* AppDelegate.h */,
 				63BECE181B4071C000BA7267 /* AppDelegate.m */,
+				D4B87C121B4788D200EDC53B /* DBRevealViewController.h */,
+				D4B87C131B4788D200EDC53B /* DBRevealViewController.m */,
 				637D79391B41942400192BDF /* MenuViewController.h */,
 				637D793A1B41942400192BDF /* MenuViewController.m */,
 				63BECE1A1B4071C000BA7267 /* RecipeViewController.h */,
 				63BECE1B1B4071C000BA7267 /* RecipeViewController.m */,
-				D4B87C111B451AE200EDC53B /* Models */,
 				637D79421B419B6500192BDF /* Main.storyboard */,
+				D4B87C111B451AE200EDC53B /* Models */,
 				637D79411B41957D00192BDF /* Utils */,
 				63BECE201B4071C000BA7267 /* Images.xcassets */,
+				D4B87C151B478BBF00EDC53B /* recipePlaceholder.png */,
 				63BECE221B4071C000BA7267 /* LaunchScreen.xib */,
 				63BECE3C1B40756900BA7267 /* YosemiteSanFranciscoFont-master */,
 				63BECE131B4071C000BA7267 /* Supporting Files */,
@@ -302,6 +310,7 @@
 				63BECE531B40756900BA7267 /* System San Francisco Display Ultralight.ttf in Resources */,
 				637D79431B419B6500192BDF /* Main.storyboard in Resources */,
 				63BECE551B40756900BA7267 /* System San Francisco Text Medium.ttf in Resources */,
+				D4B87C161B478BBF00EDC53B /* recipePlaceholder.png in Resources */,
 				63BECE521B40756900BA7267 /* System San Francisco Display Thin.ttf in Resources */,
 				63BECE541B40756900BA7267 /* System San Francisco Text BoldItalic.ttf in Resources */,
 				63BECE241B4071C000BA7267 /* LaunchScreen.xib in Resources */,
@@ -328,6 +337,7 @@
 				63BECE1C1B4071C000BA7267 /* RecipeViewController.m in Sources */,
 				637D79401B41957700192BDF /* UIColor+Hextentions.m in Sources */,
 				637D79381B4193BB00192BDF /* SWRevealViewController.m in Sources */,
+				D4B87C141B4788D200EDC53B /* DBRevealViewController.m in Sources */,
 				63BECE191B4071C000BA7267 /* AppDelegate.m in Sources */,
 				637D793B1B41942400192BDF /* MenuViewController.m in Sources */,
 				63B2077C1B42F3B300EF5BC1 /* XMLParser.m in Sources */,
